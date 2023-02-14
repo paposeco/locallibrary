@@ -145,7 +145,7 @@ exports.bookinstance_delete_post = (req, res, next) => {
 
 // Display BookInstance update form on GET.
 exports.bookinstance_update_get = (req, res) => {
-  res.send("NOT IMPLEMENTED: BookInstance update GET");
+  res.send();
 };
 
 // Handle bookinstance update on POST.
