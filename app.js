@@ -8,13 +8,17 @@ var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 const catalogRouter = require("./routes/catalog"); //Import routes for "catalog" area of site
 
+const compression = require("compression");
+const helmet = require("helmet");
 var app = express();
 
 // mongoose connection
 const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
-const mongoDB =
+const dev_db_url =
   "mongodb+srv://admin:rczBEimMmebbDwEbUL63kM@cluster0.ywai93e.mongodb.net/local_library?retryWrites=true&w=majority";
+
+const mongoDB = process.env.MONGODB_URI || dev_db_url;
 
 main().catch((err) => console.log(err));
 async function main() {
@@ -29,6 +33,7 @@ app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(compression());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
